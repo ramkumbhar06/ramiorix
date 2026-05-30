@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // src/app/api/jobs/route.ts
 // GET /api/jobs — get all jobs
 // POST /api/jobs — create a new job (admin only)
