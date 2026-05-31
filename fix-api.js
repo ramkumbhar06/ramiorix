@@ -12,13 +12,13 @@ const files = [
   'src/app/api/newsletter/route.ts',
 ];
 
-const line = 'export const dynamic = "force-dynamic";\n';
+const runtimeLine = 'export const runtime = "nodejs";\n';
 
 files.forEach(function(f) {
   try {
     const content = fs.readFileSync(f, 'utf8');
-    if (!content.includes('force-dynamic')) {
-      fs.writeFileSync(f, line + content);
+    if (!content.includes('runtime')) {
+      fs.writeFileSync(f, runtimeLine + content);
       console.log('FIXED: ' + f);
     } else {
       console.log('SKIP: ' + f);
