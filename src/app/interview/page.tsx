@@ -38,7 +38,6 @@ async function getInterviewData(searchParams: { [key: string]: string | undefine
   }
 }
 
-// Next.js 15: searchParams is now a Promise
 type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> };
 
 export default async function InterviewPage({ searchParams }: PageProps) {
