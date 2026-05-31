@@ -1,9 +1,10 @@
 "use client";
 
 // src/components/admin/AdminTopBar.tsx
+// Responsive top bar — hidden on mobile (replaced by hamburger in sidebar)
 
 import { signOut } from "next-auth/react";
-import { LogOut, Bell } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 type Props = {
   user?: { name?: string | null; email?: string | null; image?: string | null };
@@ -18,20 +19,14 @@ export default function AdminTopBar({ user }: Props) {
     .toUpperCase() || "AD";
 
   return (
-    <header className="bg-white border-b border-neutral-200 px-6 py-3 flex items-center justify-between">
-      {/* Page context — filled by each page */}
+    // Hidden on mobile — the AdminSidebar handles the mobile top bar
+    <header className="hidden md:flex bg-white border-b border-neutral-200 px-6 py-3 items-center justify-between">
       <div />
 
-      {/* Right Side */}
+      {/* Right side */}
       <div className="flex items-center gap-3">
-        {/* Notification Bell */}
-        <button className="p-2 rounded-lg text-neutral-500 hover:bg-neutral-100 transition-colors relative">
-          <Bell size={16} />
-        </button>
-
-        {/* User Info */}
+        {/* Avatar + name */}
         <div className="flex items-center gap-2.5">
-          {/* Avatar */}
           {user?.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -52,9 +47,9 @@ export default function AdminTopBar({ user }: Props) {
           </div>
         </div>
 
-        {/* Sign Out Button */}
+        {/* Sign out */}
         <button
-          onClick={() => signOut({ callbackUrl: "/admin/login" })}
+          onClick={() => signOut({ callbackUrl: "/login" })}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-neutral-500 hover:bg-red-50 hover:text-red-600 transition-colors border border-neutral-200"
         >
           <LogOut size={13} />
