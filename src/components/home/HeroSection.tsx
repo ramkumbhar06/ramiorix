@@ -55,7 +55,7 @@ export default function HeroSection() {
         <div className="flex justify-center mb-8">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-500/20 text-brand-300 rounded-full text-sm font-medium border border-brand-500/30">
             <TrendingUp size={14} />
-            1,200+ New Jobs Added This Week
+            20+ New Jobs Added This Week
           </span>
         </div>
 

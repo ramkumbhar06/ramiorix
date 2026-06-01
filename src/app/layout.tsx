@@ -1,26 +1,27 @@
 // src/app/layout.tsx
-// Root layout — wraps every single page in the app
-// Think of this as the "shell" of your website
 
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import PageLoader from "@/components/ui/PageLoader";
 import "@/styles/globals.css";
 
-// ── Metadata for SEO ──
+// Plus Jakarta Sans — modern, clean, premium-looking
+// Much better than the default system font for a career platform
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "Ramiorix — Jobs, Career Guidance & Interview Prep",
-    template: "%s | Ramiorix", // Pages can customize: "Find Jobs | Ramiorix"
+    template: "%s | Ramiorix",
   },
-  description:
-    "Ramiorix is your all-in-one career platform — discover job opportunities, prepare for interviews, read career blogs, and get fresher guidance.",
-  keywords: [
-    "jobs",
-    "career",
-    "interview questions",
-    "fresher jobs",
-    "career guidance",
-    "job portal India",
-  ],
+  description: "Ramiorix is your all-in-one career platform — discover job opportunities, prepare for interviews, read career blogs, and get fresher guidance.",
+  keywords: ["jobs", "career", "interview questions", "fresher jobs", "career guidance", "job portal India"],
   authors: [{ name: "Ramiorix" }],
   creator: "Ramiorix",
   openGraph: {
@@ -36,24 +37,19 @@ export const metadata: Metadata = {
     title: "Ramiorix",
     description: "Your all-in-one career platform.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Google Fonts are imported in globals.css */}
-      </head>
-      <body className="font-sans antialiased bg-white text-neutral-900">
-        {children}
+    <html lang="en" suppressHydrationWarning className={plusJakarta.variable}>
+      <head />
+      <body className="font-sans antialiased transition-colors duration-300">
+        <ThemeProvider>
+          {/* Top progress bar — shows on every page navigation */}
+          <PageLoader />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

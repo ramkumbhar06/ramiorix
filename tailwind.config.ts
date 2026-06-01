@@ -1,56 +1,41 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // Tell Tailwind which files to scan for class names
+  // Enable class-based dark mode (controlled by next-themes)
+  darkMode: "class",
+
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+
   theme: {
     extend: {
-      // Custom fonts imported in globals.css
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "monospace"],
-        display: ["var(--font-display)", "serif"],
+        // Plus Jakarta Sans — our new premium body font
+        sans: ["var(--font-jakarta)", "Plus Jakarta Sans", "system-ui", "sans-serif"],
+        // DM Serif Display — for headings
+        display: ["DM Serif Display", "Georgia", "serif"],
+        mono: ["ui-monospace", "monospace"],
       },
-      // Brand colors for Ramiorix
       colors: {
         brand: {
-          50: "#f0f4ff",
-          100: "#dde7ff",
-          200: "#c2d2ff",
-          300: "#9ab4ff",
-          400: "#708bff",
-          500: "#4a63f5",   // primary brand color
-          600: "#3347d6",
-          700: "#2836ad",
-          800: "#252e8a",
-          900: "#1e256b",
-          950: "#12163d",
+          50:  "#f0f3ff",
+          100: "#e0e7ff",
+          200: "#c4ceff",
+          300: "#a5b4ff",
+          400: "#818cff",
+          500: "#4a63f5",  // primary brand
+          600: "#3a4fd6",
+          700: "#2c3bab",
+          800: "#1e2880",
+          900: "#141a55",
+          950: "#0a0e2e",
         },
-        // Neutral slate palette for text and surfaces
-        neutral: {
-          50: "#f8f9fb",
-          100: "#f1f3f7",
-          200: "#e5e8ef",
-          300: "#d0d5e0",
-          400: "#9fa6ba",
-          500: "#6b7590",
-          600: "#4d5568",
-          700: "#374154",
-          800: "#1f2937",
-          900: "#111827",
-          950: "#080c14",
-        },
-      },
-      // Smooth animation timing
-      transitionTimingFunction: {
-        smooth: "cubic-bezier(0.4, 0, 0.2, 1)",
       },
       animation: {
-        "fade-in": "fadeIn 0.5s ease-out",
-        "slide-up": "slideUp 0.4s ease-out",
+        "fade-in": "fadeIn 0.3s ease-out",
+        "slide-up": "slideUp 0.3s ease-out",
       },
       keyframes: {
         fadeIn: {
@@ -58,7 +43,7 @@ module.exports = {
           "100%": { opacity: "1" },
         },
         slideUp: {
-          "0%": { opacity: "0", transform: "translateY(16px)" },
+          "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
