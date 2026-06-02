@@ -9,12 +9,12 @@ import { Search, MapPin, Briefcase, TrendingUp, ArrowRight } from "lucide-react"
 
 // Quick search tags shown below the search bar
 const popularSearches = [
+  "Fresher",
+  "Internship",
   "Data Analyst",
-  "SQL Developer",
-  "HR Executive",
-  "Business Analyst",
-  "Remote Jobs",
-  "Fresher Jobs",
+  "Banking",
+  "Remote",
+  "IT Jobs",
 ];
 
 export default function HeroSection() {
