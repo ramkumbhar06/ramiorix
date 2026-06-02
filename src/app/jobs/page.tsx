@@ -8,51 +8,190 @@ import JobsPageClient from "@/components/jobs/JobsPageClient";
 
 export const metadata: Metadata = {
   title: "Browse Jobs",
-  description: "Find your next opportunity from thousands of jobs across India and remote positions.",
+  description:
+    "Find your next opportunity from thousands of jobs across India and remote positions.",
 };
 
-async function getJobs(searchParams: { [key: string]: string | undefined }) {
-  const { q, category, location, experience, type } = searchParams;
+async function getJobs(
+  searchParams: { [key: string]: string | undefined }
+) {
+  const {
+    q,
+    category,
+    location,
+    experience,
+    type,
+  } = searchParams;
+
   try {
     const jobs = await prisma.job.findMany({
       where: {
         isActive: true,
+
+        // Global Search
         ...(q && {
           OR: [
-            { title: { contains: q, mode: "insensitive" } },
-            { company: { contains: q, mode: "insensitive" } },
-            { description: { contains: q, mode: "insensitive" } },
+            {
+              title: {
+                contains: q,
+                mode: "insensitive",
+              },
+            },
+
+            {
+              company: {
+                contains: q,
+                mode: "insensitive",
+              },
+            },
+
+            {
+              description: {
+                contains: q,
+                mode: "insensitive",
+              },
+            },
+
+            {
+              location: {
+                contains: q,
+                mode: "insensitive",
+              },
+            },
+
+            {
+              type: {
+                contains: q,
+                mode: "insensitive",
+              },
+            },
+
+            {
+              experience: {
+                contains: q,
+                mode: "insensitive",
+              },
+            },
+
+            {
+              category: {
+                name: {
+                  contains: q,
+                  mode: "insensitive",
+                },
+              },
+            },
+
+            {
+              category: {
+                slug: {
+                  contains: q,
+                  mode: "insensitive",
+                },
+              },
+            },
           ],
         }),
-        ...(location && { location: { contains: location, mode: "insensitive" } }),
-        ...(experience && { experience: { equals: experience } }),
-        ...(type && { type: { equals: type } }),
-        ...(category && { category: { slug: { equals: category } } }),
+
+        // Location Filter
+        ...(location && {
+          location: {
+            contains: location,
+            mode: "insensitive",
+          },
+        }),
+
+        // Experience Filter
+        ...(experience && {
+          experience: {
+            contains: experience,
+            mode: "insensitive",
+          },
+        }),
+
+        // Type / Remote Filter
+        ...(type && {
+          OR: [
+            {
+              type: {
+                contains: type,
+                mode: "insensitive",
+              },
+            },
+
+            {
+              location: {
+                contains: type,
+                mode: "insensitive",
+              },
+            },
+          ],
+        }),
+
+        // Category Filter
+        ...(category && {
+          category: {
+            slug: {
+              equals: category,
+            },
+          },
+        }),
       },
-      include: { category: true },
-      orderBy: [{ isFeatured: "desc" }, { createdAt: "desc" }],
+
+      include: {
+        category: true,
+      },
+
+      orderBy: [
+        {
+          isFeatured: "desc",
+        },
+        {
+          createdAt: "desc",
+        },
+      ],
     });
 
     const categories = await prisma.category.findMany({
-      where: { type: "job" },
-      orderBy: { name: "asc" },
+      where: {
+        type: "job",
+      },
+
+      orderBy: {
+        name: "asc",
+      },
     });
 
-    return { jobs, categories };
+    return {
+      jobs,
+      categories,
+    };
   } catch {
-    return { jobs: [], categories: [] };
+    return {
+      jobs: [],
+      categories: [],
+    };
   }
 }
 
-type PageProps = { searchParams: Promise<{ [key: string]: string | undefined }> };
+type PageProps = {
+  searchParams: Promise<{
+    [key: string]: string | undefined;
+  }>;
+};
 
-export default async function JobsPage({ searchParams }: PageProps) {
+export default async function JobsPage({
+  searchParams,
+}: PageProps) {
   const resolvedParams = await searchParams;
-  const { jobs, categories } = await getJobs(resolvedParams);
+
+  const { jobs, categories } =
+    await getJobs(resolvedParams);
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
+
       <main className="flex-1 bg-neutral-50">
         <JobsPageClient
           initialJobs={jobs}
@@ -60,6 +199,7 @@ export default async function JobsPage({ searchParams }: PageProps) {
           searchParams={resolvedParams}
         />
       </main>
+
       <Footer />
     </div>
   );

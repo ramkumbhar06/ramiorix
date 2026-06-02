@@ -102,7 +102,8 @@ export default async function JobDetailPage({ params }: PageProps) {
               <div className="bg-brand-50 rounded-2xl border border-brand-100 p-5">
                 <h3 className="font-semibold text-brand-800 mb-1 text-sm">Prepare for this Interview</h3>
                 <p className="text-xs text-brand-600 mb-3">Browse {job.category?.name || "relevant"} interview questions.</p>
-                <Link href={`/interview${job.category ? `?category=${job.category.slug}` : ""}`} className="btn-primary text-xs w-full flex items-center justify-center gap-1.5">
+                <Link href="/interview" 
+                className="btn-primary text-xs w-full flex items-center justify-center gap-1.5">
                   Practice Questions →
                 </Link>
               </div>
