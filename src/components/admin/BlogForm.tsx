@@ -28,6 +28,8 @@ export default function BlogForm({ blog, categories }: Props) {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [categorySearch, setCategorySearch] =
+  useState("");
 
   function update(field: string, value: string | boolean) {
     setForm((prev) => ({
@@ -142,13 +144,82 @@ export default function BlogForm({ blog, categories }: Props) {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-600 mb-1.5">Category</label>
-            <select value={form.categoryId} onChange={(e) => update("categoryId", e.target.value)} className="input">
-              <option value="">No Category</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>{cat.name}</option>
-              ))}
-            </select>
+            <div>
+  <label className="block text-xs font-medium text-neutral-600 mb-1.5">
+    Category
+  </label>
+
+  <input
+    type="text"
+    placeholder="Search category..."
+    value={
+      form.categoryId
+        ? categories.find(
+            (c) => c.id === form.categoryId
+          )?.name || ""
+        : categorySearch
+    }
+    onChange={(e) => {
+      update("categoryId", "");
+      setCategorySearch(e.target.value);
+    }}
+    className="input mb-2"
+  />
+
+  <div className="border border-neutral-200 rounded-xl max-h-48 overflow-y-auto bg-white">
+
+    <button
+      type="button"
+      onClick={() => {
+        update("categoryId", "");
+        setCategorySearch("");
+      }}
+      className="w-full text-left px-3 py-2 hover:bg-neutral-100"
+    >
+      No Category
+    </button>
+
+    {categories
+      .filter((cat) =>
+        cat.name
+          .toLowerCase()
+          .includes(
+            categorySearch.toLowerCase()
+          )
+      )
+      .map((cat) => (
+
+        <button
+          key={cat.id}
+          type="button"
+          onClick={() => {
+            update("categoryId", cat.id);
+            setCategorySearch(cat.name);
+          }}
+          className={`w-full text-left px-3 py-2 hover:bg-neutral-100 ${
+            form.categoryId === cat.id
+              ? "bg-brand-50 text-brand-600"
+              : ""
+          }`}
+        >
+          {cat.name}
+        </button>
+
+      ))}
+
+  </div>
+
+  {form.categoryId && (
+    <p className="mt-2 text-xs text-green-600">
+      Selected:{" "}
+      {
+        categories.find(
+          (c) => c.id === form.categoryId
+        )?.name
+      }
+    </p>
+  )}
+</div>
           </div>
         </div>
 
