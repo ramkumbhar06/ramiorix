@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import PageLoader from "@/components/ui/PageLoader";
 import "@/styles/globals.css";
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
