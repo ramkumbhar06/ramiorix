@@ -1,17 +1,24 @@
 // src/app/layout.tsx
 
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import PageLoader from "@/components/ui/PageLoader";
 import "@/styles/globals.css";
 
-// Plus Jakarta Sans — modern, clean, premium-looking
-// Much better than the default system font for a career platform
+// Body font — modern, clean
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-jakarta",
+  display: "swap",
+});
+
+// Logo font — matches the exact Ramiorix logo style
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -42,11 +49,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={plusJakarta.variable}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${plusJakarta.variable} ${cormorant.variable}`}
+    >
       <head />
       <body className="font-sans antialiased transition-colors duration-300">
         <ThemeProvider>
-          {/* Top progress bar — shows on every page navigation */}
           <PageLoader />
           {children}
         </ThemeProvider>

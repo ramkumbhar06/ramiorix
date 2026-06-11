@@ -1,8 +1,5 @@
 "use client";
 
-// src/components/layout/Navbar.tsx
-// Public navbar with dark/light toggle, premium font, loading feedback
-
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -17,7 +14,6 @@ const navLinks = [
   { href: "/fresher", label: "Fresher Guide", icon: Star },
 ];
 
-// Dark/Light toggle button
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   return (
@@ -32,26 +28,40 @@ function ThemeToggle() {
   );
 }
 
+// The Ramiorix logo — uses Cormorant Garamond font matching the real logo
+function RamiorixLogo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
+  const sizes = {
+    sm: "text-xl",
+    md: "text-2xl",
+    lg: "text-5xl",
+  };
+  return (
+    <span
+      className={`${sizes[size]} font-logo tracking-tight`}
+      style={{ color: "ffffff" }}
+    >
+      Ramiorix
+    </span>
+  );
+}
+
+export { RamiorixLogo };
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 dark:bg-neutral-950/90 backdrop-blur-md border-b border-neutral-100 dark:border-neutral-800 transition-colors duration-300">
+    <header className="sticky top-0 z-50 bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border-b border-neutral-100 dark:border-neutral-800 transition-colors duration-300">
       <nav className="container-custom">
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl flex items-center justify-center shadow-sm">
-              <span className="text-white font-bold text-sm tracking-tight">R</span>
-            </div>
-            <span className="font-display text-xl text-neutral-900 dark:text-white tracking-tight">
-              Ramiorix
-            </span>
+          <Link href="/" className="flex items-center">
+            <RamiorixLogo size="md" />
           </Link>
 
-          {/* Desktop Nav Links */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive = pathname.startsWith(link.href);
@@ -73,7 +83,7 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Desktop Right Side */}
+          {/* Desktop Right */}
           <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
             <Link href="/jobs" className="btn-primary text-sm">
@@ -81,7 +91,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Right Side */}
+          {/* Mobile Right */}
           <div className="md:hidden flex items-center gap-2">
             <ThemeToggle />
             <button
@@ -117,11 +127,7 @@ export default function Navbar() {
               );
             })}
             <div className="pt-2 mt-2 border-t border-neutral-100 dark:border-neutral-800">
-              <Link
-                href="/jobs"
-                onClick={() => setIsMenuOpen(false)}
-                className="btn-primary block text-center"
-              >
+              <Link href="/jobs" onClick={() => setIsMenuOpen(false)} className="btn-primary block text-center">
                 Browse Jobs
               </Link>
             </div>

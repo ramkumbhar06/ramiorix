@@ -1,33 +1,31 @@
 "use client";
 
-// src/app/login/page.tsx
-// Admin login page — OUTSIDE the /admin folder to avoid redirect loops
-
 import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-neutral-950 flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
-
         <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
 
           {/* Logo */}
-          <div className="flex items-center gap-2 mb-8 justify-center">
-            <div className="w-9 h-9 bg-brand-500 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">R</span>
-            </div>
-            <span className="font-display text-2xl text-white">Ramiorix</span>
+          <div className="text-center mb-8">
+            <span
+              className="font-logo text-4xl tracking-tight"
+              style={{ color: "#ffffff" }}
+            >
+              Ramiorix
+            </span>
+            <p className="text-neutral-600 text-xs mt-1">Admin Panel</p>
           </div>
 
-          <h1 className="text-xl font-semibold text-white text-center mb-2">
-            Admin Login
+          <h1 className="text-lg font-semibold text-white text-center mb-2">
+            Sign In
           </h1>
           <p className="text-neutral-500 text-sm text-center mb-8">
-            Sign in with your Google account to access the admin dashboard.
+            Use your authorized Google account to access the dashboard.
           </p>
 
-          {/* Google Sign In */}
           <button
             onClick={() => signIn("google", { callbackUrl: "/admin" })}
             className="w-full flex items-center justify-center gap-3 bg-white text-neutral-800 font-medium py-3 px-4 rounded-xl hover:bg-neutral-100 transition-colors text-sm"
@@ -45,11 +43,8 @@ export default function LoginPage() {
             Only authorized admin emails can sign in.
           </p>
         </div>
-
         <p className="text-center text-neutral-700 text-xs mt-4">
-          <a href="/" className="hover:text-neutral-400 transition-colors">
-            ← Back to Ramiorix
-          </a>
+          <a href="/" className="hover:text-neutral-400 transition-colors">← Back to Ramiorix</a>
         </p>
       </div>
     </div>

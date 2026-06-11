@@ -1,58 +1,53 @@
+// src/app/loading.tsx
+
 export default function Loading() {
   return (
     <div
-  className="
-    min-h-screen
-    flex
-    items-center
-    justify-center
-    bg-black/10
-    backdrop-blur-md
-  "
->
-      <div
-        className="
-          flex
-          flex-col
-          items-center
-          gap-4
-        "
-      >
+      className="
+        min-h-screen
+        flex
+        items-center
+        justify-center
+        bg-black/10
+        backdrop-blur-md
+      "
+    >
+      <div className="flex flex-col items-center gap-4">
 
-        {/* Logo */}
-        <div
-          className="
-            w-14
-            h-14
-            rounded-2xl
-            bg-brand-500
-            flex
-            items-center
-            justify-center
-            animate-pulse
-            shadow-lg
-          "
-        >
+        <div className="flex flex-col items-center animate-pulse">
+
           <span
             className="
+              font-logo
+              text-5xl
+              tracking-tight
               text-white
-              font-bold
-              text-2xl
             "
           >
-            R
+            Ramiorix
           </span>
+
+          <span
+            className="
+              text-xs
+              uppercase
+              tracking-[0.3em]
+              text-brand-400
+              mt-1
+            "
+          >
+            Learn • Prepare • Succeed
+          </span>
+
         </div>
 
-        {/* Loading text */}
         <p
           className="
             text-sm
             text-neutral-400
-            animate-pulse
           "
         >
-          Ramiorix...
+          Loading Ramiorix...
         </p>
 
       </div>
